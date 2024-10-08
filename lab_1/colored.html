@@ -10,22 +10,27 @@
         background-color: red;
         width: 100px;
         height: 100px;
-        display: inline-block;
+        margin: 10px;
+      }
+      .divek {
+        display: flex;
+        flex-direction: row;
       }
       #zdjecie {
-        width: 100%;
-        height: 100%;
+        width: 100px;
+        height: 100px;
         object-fit: cover;
+        margin: 0;
       }
     </style>
   </head>
   <body>
     <a style="background-color: blue" href="index.html">Strona główna</a>
-    <div>
+    <div class="divek">
       <div style="background-color: brown" class="yep"></div>
       <div style="background-color: aquamarine" class="yep"></div>
     </div>
-    <div>
+    <div class="divek">
       <div style="background-color: green" class="yep"></div>
       <div style="background-color: bisque" class="yep"></div>
       <div class="yep">

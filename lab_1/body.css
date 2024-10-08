@@ -1,3 +1,9 @@
 body {
-  background-color: #a4a1a1; /* A dark grey color */
+  background-color: #ada8a8; /* A dark grey color */
+}
+a {
+  color: #d3cd9e; /* A blue color */
+}
+a:hover {
+  color: red; /* A yellow color */
 }
