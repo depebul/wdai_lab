@@ -70,7 +70,7 @@ nav a:hover {
 main {
   flex: 1;
   padding: 2rem;
-  min-width: 500px; /* Added min-width */
+  min-width: 50%; /* Added min-width */
   max-width: 1000px; /* Increased max-width */
   margin: 0 auto;
   background-color: rgba(245, 245, 220, 0.9); /* Light beige background */
