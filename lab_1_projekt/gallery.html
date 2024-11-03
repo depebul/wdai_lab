@@ -23,13 +23,28 @@
     <main>
       <h1 style="text-align: center">Galeria</h1>
       <div class="gallery">
-        <!-- Add your images here -->
         <img src="./piwo4.jpg" alt="Image 1" />
         <img src="./piwo5.jpg" alt="Image 2" />
         <img src="./piwo1.jpg" alt="Image 2" />
         <img src="./piwo2.jpg" alt="Image 3" />
         <img src="./piwo3.jpg" alt="Image 4" />
       </div>
+      <iframe
+        min-width="150px"
+        min-height="100px"
+        src="https://www.youtube.com/embed/jNQXAC9IVRw"
+        title="Me at the zoo"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+      <script>
+        window.onresize = function () {
+          const gallery = document.getElementByClassName("gallery");
+          console.log(gallery);
+        };
+      </script>
     </main>
     <footer>
       <p>Dawid Żak</p>

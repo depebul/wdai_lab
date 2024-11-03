@@ -17,7 +17,6 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
   margin: 0;
   font-family: "Lato", sans-serif;
   color: #333;
@@ -177,19 +176,13 @@ input[type="submit"]:hover {
   background-color: #8b4513; /* Saddle brown color */
 }
 
-/* Gallery styling */
 .gallery {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
 }
-
 .gallery img {
-  max-width: 500px;
+  width: 100%;
   height: auto;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s;
 }
 
