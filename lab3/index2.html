@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" id="minlength" placeholder="minimalna dlugosc hasla" />
+    <input type="text" id="maxlength" placeholder="maksymalna dlugosc hasla" />
+    <a>Czy mają być duże litery</a>
+    <input type="checkbox" id="uppercase" />
+    <a>Czy mają być znaki specjalne</a>
+    <input type="checkbox" id="specialchar" />
+    <button id="generate" onclick="generate()">Generuj</button>
+    <div id="password"></div>
+  </body>
+  <script>
+    function generate() {
+      const minLength = parseInt(document.getElementById("minlength").value);
+      const maxLength = parseInt(document.getElementById("maxlength").value);
+      const useUppercase = document.getElementById("uppercase").checked;
+      const useSpecialChar = document.getElementById("specialchar").checked;
+
+      if (isNaN(minLength) || isNaN(maxLength) || minLength > maxLength) {
+        alert("Please enter valid minimum and maximum lengths.");
+        return;
+      }
+
+      const lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
+      const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      const specialChars = "!@#$%^&*()_+[]{}|;:,.<>?";
+      let allChars = lowercaseChars;
+
+      if (useUppercase) {
+        allChars += uppercaseChars;
+      }
+      if (useSpecialChar) {
+        allChars += specialChars;
+      }
+
+      const passwordLength =
+        Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;
+      let password = "";
+
+      for (let i = 0; i < passwordLength; i++) {
+        const randomIndex = Math.floor(Math.random() * allChars.length);
+        password += allChars[randomIndex];
+      }
+
+      alert(`twoje hasło to: ${password}`);
+    }
+  </script>
+</html>

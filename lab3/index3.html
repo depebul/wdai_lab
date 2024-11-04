@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .product-image {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="text" placeholder="podaj filtrowaną frazę" id="filter" />
+    <select id="sort">
+      <option value="rosnaco">rosnaco</option>
+      <option value="malejaco">malejaco</option>
+      <option value="oryginalna kolejnosc">oryginalna kolejnosc</option>
+    </select>
+    <button onclick="fetchAndDisplayProducts()">wykonaj</button>
+    <h1>Product List</h1>
+    <ul id="product-list"></ul>
+  </body>
+  <script>
+    let originalProductList = [];
+
+    function fetchAndDisplayProducts() {
+      fetch("https://dummyjson.com/products")
+        .then((response) => response.json())
+        .then((data) => {
+          originalProductList = data.products;
+          displayProducts(originalProductList);
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
+    }
+
+    function displayProducts(products) {
+      const productList = document.getElementById("product-list");
+      productList.innerHTML = ""; // Clear the list
+
+      const sortType = document.getElementById("sort").value;
+      let sortedProducts = [...products];
+
+      const filterText = document.getElementById("filter").value;
+      if (filterText) {
+        sortedProducts = sortedProducts.filter((product) =>
+          product.title.toLowerCase().includes(filterText.toLowerCase())
+        );
+      }
+
+      if (sortType === "rosnaco") {
+        sortedProducts.sort((a, b) => a.title.localeCompare(b.title));
+      } else if (sortType === "malejaco") {
+        sortedProducts.sort((a, b) => b.title.localeCompare(a.title));
+      }
+
+      sortedProducts.forEach((product) => {
+        const listItem = document.createElement("li");
+
+        const title = document.createElement("h2");
+        title.textContent = product.title;
+        listItem.appendChild(title);
+
+        const description = document.createElement("p");
+        description.textContent = product.description;
+        listItem.appendChild(description);
+
+        const image = document.createElement("img");
+        image.src = product.images[0];
+        image.alt = product.title;
+        image.className = "product-image";
+        listItem.appendChild(image);
+
+        productList.appendChild(listItem);
+      });
+    }
+
+    // Initial fetch and display
+    fetchAndDisplayProducts();
+  </script>
+</html>

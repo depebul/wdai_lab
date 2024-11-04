@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="zegar">00:00</div>
+    <button onclick="start()">Start</button>
+    <button onclick="stop()">Stop</button>
+    <button onclick="reset()">Reset</button>
+  </body>
+  <script>
+    let intervalId;
+    let elapsedTime = 0;
+    const zegar = document.getElementById("zegar");
+
+    function start() {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+      const startTime = Date.now() - elapsedTime;
+      intervalId = setInterval(() => {
+        elapsedTime = Date.now() - startTime;
+        const minutes = String(Math.floor(elapsedTime / 60000)).padStart(
+          2,
+          "0"
+        );
+        const seconds = String(
+          Math.floor((elapsedTime % 60000) / 1000)
+        ).padStart(2, "0");
+        zegar.innerHTML = `${minutes}:${seconds}`;
+      }, 1000);
+    }
+
+    function stop() {
+      clearInterval(intervalId);
+    }
+
+    function reset() {
+      clearInterval(intervalId);
+      elapsedTime = 0;
+      zegar.innerHTML = "00:00";
+    }
+  </script>
+</html>
