@@ -40,7 +40,7 @@
 
     function displayProducts(products) {
       const productList = document.getElementById("product-list");
-      productList.innerHTML = ""; // Clear the list
+      productList.innerHTML = "";
 
       const sortType = document.getElementById("sort").value;
       let sortedProducts = [...products];
@@ -79,7 +79,6 @@
       });
     }
 
-    // Initial fetch and display
     fetchAndDisplayProducts();
   </script>
 </html>

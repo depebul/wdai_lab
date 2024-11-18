@@ -24,24 +24,23 @@ window.onload = function () {
   let animationFrameId;
   let zombieSpawnIntervalId;
 
-  backgroundImage.src = "./images/board-bg.jpg"; // Replace with the path to your background image
-  crosshairImage.src = "./images/aim.png"; // Replace with the path to your crosshair image
-  fullHeartImage.src = "./images/full_heart.png"; // Replace with the path to your good heart image
-  emptyHeartImage.src = "./images/empty_heart.png"; // Replace with the path to your lost heart image
+  backgroundImage.src = "./images/board-bg.jpg";
+  crosshairImage.src = "./images/aim.png";
+  fullHeartImage.src = "./images/full_heart.png";
+  emptyHeartImage.src = "./images/empty_heart.png";
 
   backgroundImage.onload = function () {
     ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
   };
 
   function drawHearts(fullHearts) {
-    const heartWidth = canvas.width * 0.07; // 7% of canvas width
-    const heartHeight = canvas.width * 0.07; // 7% of canvas height
-    const heartSpacing = canvas.width * 0.02; // 2% of canvas width
+    const heartWidth = canvas.width * 0.07;
+    const heartHeight = canvas.width * 0.07;
+    const heartSpacing = canvas.width * 0.02;
 
-    // Draw three hearts based on the number of full hearts
     for (let i = 0; i < 3; i++) {
       const x = i * (heartWidth + heartSpacing) + 50;
-      const y = 50; // Distance from the top
+      const y = 50;
 
       if (i < fullHearts) {
         ctx.drawImage(fullHeartImage, x, y, heartWidth, heartHeight);
@@ -51,12 +50,11 @@ window.onload = function () {
     }
   }
 
-  // Function to draw the score
   function drawScore(score) {
-    const scoreText = score.toString().padStart(5, "0"); // Ensure the score is 5 digits
-    const x = canvas.width - 370; // Position from the right
-    const y = 140; // Position from the top
-    ctx.font = "110px Arial"; // Increase the font size to 30px
+    const scoreText = score.toString().padStart(5, "0");
+    const x = canvas.width - 370;
+    const y = 140;
+    ctx.font = "110px Arial";
     ctx.fillStyle = "white";
     ctx.fillText(scoreText, x, y);
   }
@@ -66,7 +64,6 @@ window.onload = function () {
     mouseY = event.clientY - canvas.offsetTop;
   });
 
-  // Function to check if a point is inside a rectangle
   function isPointInRect(x, y, rect) {
     return (
       x >= rect.x &&
@@ -76,7 +73,6 @@ window.onload = function () {
     );
   }
 
-  // Add event listener for mouse clicks
   canvas.addEventListener("click", (event) => {
     const rect = canvas.getBoundingClientRect();
     const mouseX = event.clientX - rect.left;
@@ -88,7 +84,7 @@ window.onload = function () {
       if (isPointInRect(mouseX, mouseY, zombies[i])) {
         clickedOnZombie = true;
         currentScore += 20;
-        zombies.splice(i, 1); // Remove this zombie
+        zombies.splice(i, 1);
       }
     }
 
@@ -97,24 +93,18 @@ window.onload = function () {
     }
   });
 
-  // Main animation loop
   function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
 
-    // Redraw the hearts and score
     drawHearts(livesLeft);
     drawScore(currentScore);
 
-    // Update and draw zombies
     updateZombies();
     drawZombies(ctx);
+    const crosshairWidth = canvas.width * 0.2;
+    const crosshairHeight = canvas.width * 0.2;
 
-    // Define the desired width and height for the crosshair
-    const crosshairWidth = canvas.width * 0.2; // 20% of canvas width
-    const crosshairHeight = canvas.width * 0.2; // 20% of canvas height
-
-    // Draw the crosshair at the mouse position with the new size
     ctx.drawImage(
       crosshairImage,
       mouseX - crosshairWidth / 2,
@@ -125,8 +115,8 @@ window.onload = function () {
 
     for (let i = zombies.length - 1; i >= 0; i--) {
       if (zombies[i].x + zombies[i].width < 0) {
-        zombies.splice(i, 1); // Remove the zombie
-        livesLeft -= 1; // Decrease lives
+        zombies.splice(i, 1);
+        livesLeft -= 1;
         if (livesLeft <= 0) {
           cancelAnimationFrame(animationFrameId);
           clearInterval(zombieSpawnIntervalId);
@@ -147,19 +137,16 @@ window.onload = function () {
   function resetGame() {
     livesLeft = 3;
     currentScore = 0;
-    zombies.length = 0; // Clear the zombies array
+    zombies.length = 0;
 
-    // Restart the animation and zombie spawning
     animationFrameId = requestAnimationFrame(animate);
     zombieSpawnIntervalId = setInterval(() => spawnZombie(canvas), 2000);
   }
 
-  // When the user clicks on <span> (x), close the modal
   document.querySelector(".close").onclick = function () {
     modal.style.display = "none";
   };
 
-  // When the user clicks on the reset button, reset the game
   resetButton.onclick = function () {
     modal.style.display = "none";
     gameOverMusic.pause();
@@ -167,6 +154,5 @@ window.onload = function () {
     resetGame();
   };
 
-  // Start the game
   resetGame();
 };
