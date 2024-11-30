@@ -1,0 +1,19 @@
+
+
+### Register a new user
+POST http://localhost:3003/api/register
+Content-Type: application/json
+
+{
+    "email": "user@example.com",
+    "password": "yourpassword"
+}
+
+### Login a user
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+    "email": "user@example.com",
+    "password": "yourpassword"
+}
