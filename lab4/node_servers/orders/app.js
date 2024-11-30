@@ -97,12 +97,17 @@ app.post("/api/orders", verifyToken, async (req, res) => {
 app.delete("/api/orders/:id", verifyToken, async (req, res) => {
   try {
     const order = await Order.findByPk(req.params.id);
-    if (order) {
-      await order.destroy();
-      res.status(204).send(); // No Content
-    } else {
-      res.status(404).send("Order not found");
+    if (!order) {
+      return res.status(404).send("Order not found");
     }
+    if (order.userId !== req.user.id) {
+      return res
+        .status(403)
+        .send("You are not authorized to delete this order");
+    }
+
+    await order.destroy();
+    res.status(204).send(); // No Content
   } catch (error) {
     console.error("Error deleting order:", error);
     res.status(500).send("Internal Server Error");
@@ -112,13 +117,18 @@ app.delete("/api/orders/:id", verifyToken, async (req, res) => {
 app.patch("/api/orders/:id", verifyToken, async (req, res) => {
   try {
     const order = await Order.findByPk(req.params.id);
-    if (order) {
-      const { bookId, quantity, userId } = req.body;
-      await order.update({ bookId, quantity, userId });
-      res.json(order);
-    } else {
-      res.status(404).send("Order not found");
+    if (!order) {
+      return res.status(404).send("Order not found");
     }
+    if (order.userId !== req.user.id) {
+      return res
+        .status(403)
+        .send("You are not authorized to update this order");
+    }
+
+    const { bookId, quantity } = req.body;
+    await order.update({ bookId, quantity });
+    res.json(order);
   } catch (error) {
     console.error("Error updating order:", error);
     res.status(500).send("Internal Server Error");

@@ -1,0 +1,72 @@
+### Register a new user
+POST http://localhost:3003/api/register
+Content-Type: application/json
+
+{
+    "email": "user@example.com",
+    "password": "yourpassword"
+}
+
+
+### Login a user and store the token in a variable
+@token = {{login.response.body.token}}
+# @name login
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+    "email": "user@example.com",
+    "password": "yourpassword"
+}
+
+
+
+### Get All Books
+GET http://localhost:3000/api/books
+Authorization: Bearer {{token}}
+
+### Get Book by ID
+GET http://localhost:3000/api/books/4
+Authorization: Bearer {{token}}
+
+### Add a New Book
+
+POST http://localhost:3000/api/books
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "The Great Gatsby",
+  "author": "F. Scott Fitzgerald",
+  "year": 1925
+}
+
+### Delete Book by ID
+DELETE http://localhost:3000/api/books/5
+Authorization: Bearer {{token}}
+
+### Get all orders for a user
+GET http://localhost:3001/api/orders/3
+Accept: application/json
+Authorization: Bearer {{token}}
+### Add an order
+POST http://localhost:3001/api/orders
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "bookId": 3,
+  "quantity": 3
+}
+### delete an order
+DELETE http://localhost:3001/api/orders/15
+Authorization: Bearer {{token}}
+### update an order
+PATCH http://localhost:3001/api/orders/13
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "bookId": 3,
+  "quantity": 3
+}
